@@ -120,6 +120,7 @@ MS_Usage()
     echo "                         program from an xterm"
     echo "    --lsm file         : LSM file describing the package"
     echo "    --license file     : Append a license file"
+    echo "    --checkroot        : Ensure that the user is root before decompressing"
     echo "    --help-header file : Add a header to the archive's --help output"
     echo
     echo "Do not forget to give a fully qualified startup script name"
@@ -146,6 +147,7 @@ TAR_EXTRA=""
 DU_ARGS=-ks
 HEADER=`dirname "$0"`/makeself-header.sh
 TARGETDIR=""
+CHECKROOT=n
 
 # LSM file stuff
 LSM_CMD="echo No LSM. >> \"\$archname\""
@@ -267,6 +269,10 @@ do
 	;;
     -h | --help)
 	MS_Usage
+	;;
+    --checkroot)
+        CHECKROOT=y
+	shift
 	;;
     -*)
 	echo Unrecognized flag : "$1"

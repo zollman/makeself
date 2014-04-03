@@ -17,6 +17,7 @@ helpheader='$HELPHEADER'
 targetdir="$archdirname"
 filesizes="$filesizes"
 keep="$KEEP"
+checkroot="$CHECKROOT"
 quiet="n"
 
 print_cmd_arg=""
@@ -209,6 +210,14 @@ UnTAR()
     else
 
 		tar \$1f - 2>&1 || { echo Extraction failed. > /dev/tty; kill -15 \$$; }
+    fi
+}
+
+MS_CheckRoot()
+{
+    if test \! -w /usr/bin; then
+	echo "You must be root to execute this script."
+	exit 2
     fi
 }
 
